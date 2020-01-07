@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './loginProcess.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,82 +8,194 @@ class LoginPage extends StatefulWidget {
 
 final TextStyle hintS = new TextStyle(fontSize: 20);
 final TextStyle labelS = new TextStyle(fontSize: 30);
+TextEditingController _email = new TextEditingController();
+TextEditingController _pass = new TextEditingController();
+bool visible = true;
+
+final Authentication _auth = new Authentication();
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  // void setState(fn) {
+  //   super.setState(fn);
+  //   void changeVisibility(bool visible) {
+  //     if (visible)
+  //       visible = false;
+  //     else
+  //       visible = true;
+  //   }@override
+  // }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.white,
-      body: new Column(
+      body: new Stack(
         children: <Widget>[
-          new Container(
-            height: 180,
-            width: 200,
-            alignment: Alignment.topCenter,
-            child: new Image.asset(
-              'assets/images.png',
+          Positioned(
+              top: 160,
+              child: new Container(
+                height: 380,
+                width: 424,
+                child: new Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(70)),
+                  child: new ListView(
+                    children: <Widget>[
+                      new Container(
+                        child: new Text(
+                          'Login',
+                          style: new TextStyle(
+                              color: Colors.blue,
+                              fontSize: 50,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        padding: EdgeInsets.only(left: 40, top: 20, bottom: 15),
+                      ),
+                      new Container(
+                        height: 70,
+                        width: 10,
+                        padding: EdgeInsets.only(left: 5, right: 20),
+                        child: new TextField(
+                          controller: _email,
+                          decoration: InputDecoration(
+                            icon: Icon(
+                              Icons.account_circle,
+                              size: 45,
+                            ),
+                            labelText: 'Email/Username',
+                            labelStyle: labelS,
+                            hintText: 'example123@gmail.com',
+                            hintStyle: hintS,
+                          ),
+                        ),
+                      ),
+                      new Container(
+                        height: 70,
+                        width: 10,
+                        padding: EdgeInsets.only(left: 5, right: 20),
+                        child: new TextField(
+                          controller: _pass,
+                          obscureText: visible,
+                          decoration: InputDecoration(
+                            suffix: IconButton(
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.visibility_off,
+                                size: 30,
+                              ),
+                            ),
+                            icon: Icon(
+                              Icons.vpn_key,
+                              size: 40,
+                            ),
+                            labelText: 'Password',
+                            labelStyle: labelS,
+                            hintText: '********',
+                            hintStyle: hintS,
+                          ),
+                        ),
+                      ),
+                      new Container(
+                        padding: EdgeInsets.only(left: 150, top: 10),
+                        child: new MaterialButton(
+                          child: new Text(
+                            'Forgot Password ?',
+                            style:
+                                new TextStyle(color: Colors.blue, fontSize: 20),
+                          ),
+                          onPressed: null,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )),
+          Positioned(
+            top: 40,
+            left: 110,
+            child: new Container(
+              height: 180,
+              width: 200,
+              alignment: Alignment.topCenter,
+              child: new Image.asset(
+                'assets/images.png',
+              ),
+              padding: EdgeInsets.only(top: 5),
             ),
-            padding: EdgeInsets.only(top: 5),
           ),
-          new Container(
-            height: 350,
-            width: 500,
-            child: new Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(70)),
-                child: new ListView(
-                  children: <Widget>[
-                    new Container(
-                      child: new Text(
-                        'Login',
-                        style: new TextStyle(
-                            color: Colors.blue,
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      padding: EdgeInsets.only(left: 40, top: 20, bottom: 15),
-                    ),
-                    new Container(
-                      height: 70,
-                      width: 10,
-                      padding: EdgeInsets.only(left: 5, right: 20),
-                      child: new TextField(
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.account_circle,
-                            size: 45,
-                          ),
-                          labelText: 'Email/Username',
-                          labelStyle: labelS,
-                          hintText: 'example123@gmail.com',
-                          hintStyle: hintS,
-                        ),
-                      ),
-                    ),
-                    new Container(
-                      height: 70,
-                      width: 10,
-                      padding: EdgeInsets.only(left: 5, right: 20),
-                      child: new TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.vpn_key,
-                            size: 40,
-                          ),
-                          labelText: 'Password',
-                          labelStyle: labelS,
-                          hintText: '********',
-                          hintStyle: hintS,
-                        ),
-                      ),
-                    )
-                  ],
-                )),
+          Positioned(
+            top: 500,
+            left: 160,
+            child: loginButton(),
+          ),
+          Positioned(
+            top: 625,
+            left: 190,
+            child: new Text(
+              'OR',
+              style: new TextStyle(
+                  color: Colors.blue[900],
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          Positioned(
+            top: 700,
+            left: 70,
+            child: newAccountButton(),
           )
         ],
       ),
     );
   }
+}
+
+Widget loginButton() {
+  return new Container(
+    child: new MaterialButton(
+      // onPressed: null,
+      onPressed: () async {
+        if (_email.toString().isNotEmpty && _pass.toString().isNotEmpty) {
+          dynamic result =
+              await _auth.login(_email.toString(), _pass.toString());
+          if (result == null)
+            print('SingIn error');
+          else
+            print('object');
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+            color: Colors.teal[300], 
+            // borderRadius: BorderRadius.circular(20)
+            ),
+        child: Icon(
+          Icons.arrow_forward,
+          size: 75,
+          color: Colors.white,
+        ),
+      ),
+      color: Colors.white,
+    ),
+  );
+}
+
+Widget newAccountButton() {
+  return new Card(
+    elevation: 10,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+    color: Colors.redAccent,
+    child: new FlatButton(
+      onPressed: null,
+      child: new Container(
+        child: new Text(
+          'Create a new Account',
+          style: new TextStyle(color: Colors.white, fontSize: 25),
+        ),
+      ),
+    ),
+  );
 }

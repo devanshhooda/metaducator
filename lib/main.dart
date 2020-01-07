@@ -9,7 +9,7 @@ class Metaducator extends StatefulWidget {
 }
 
 class _MetaducatorState extends State<Metaducator> {
-  @override 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,

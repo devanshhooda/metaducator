@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './loginProcess.dart';
+import './process.dart';
+import './registerScreen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ final TextStyle hintS = new TextStyle(fontSize: 20);
 final TextStyle labelS = new TextStyle(fontSize: 30);
 TextEditingController _email = new TextEditingController();
 TextEditingController _pass = new TextEditingController();
-bool visible = true;
+// bool visible = true;
 
 final Authentication _auth = new Authentication();
 
@@ -33,7 +34,18 @@ class _LoginPageState extends State<LoginPage> {
       body: new Stack(
         children: <Widget>[
           Positioned(
-              top: 160,
+            left: 20,
+            top: 30,
+            child: new Text(
+              'Metaducator',
+              style: new TextStyle(
+                  color: Colors.redAccent,
+                  fontSize: 50,
+                  fontWeight: FontWeight.w900),
+            ),
+          ),
+          Positioned(
+              top: 200,
               child: new Container(
                 height: 380,
                 width: 424,
@@ -77,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: EdgeInsets.only(left: 5, right: 20),
                         child: new TextField(
                           controller: _pass,
-                          obscureText: visible,
+                          obscureText: true,
                           decoration: InputDecoration(
                             suffix: IconButton(
                               onPressed: null,
@@ -113,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               )),
           Positioned(
-            top: 40,
+            top: 80,
             left: 110,
             child: new Container(
               height: 180,
@@ -126,12 +138,12 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Positioned(
-            top: 500,
+            top: 540,
             left: 160,
             child: loginButton(),
           ),
           Positioned(
-            top: 625,
+            top: 645,
             left: 190,
             child: new Text(
               'OR',
@@ -144,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
           Positioned(
             top: 700,
             left: 70,
-            child: newAccountButton(),
+            child: newAccountButton(context),
           )
         ],
       ),
@@ -163,15 +175,15 @@ Widget loginButton() {
           if (result == null)
             print('SingIn error');
           else
-            print('object');
+            print('Object');
         }
       },
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-            color: Colors.teal[300], 
-            // borderRadius: BorderRadius.circular(20)
-            ),
+          color: Colors.teal[300],
+          // borderRadius: BorderRadius.circular(20)
+        ),
         child: Icon(
           Icons.arrow_forward,
           size: 75,
@@ -183,13 +195,15 @@ Widget loginButton() {
   );
 }
 
-Widget newAccountButton() {
+Widget newAccountButton(BuildContext context) {
   return new Card(
     elevation: 10,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
     color: Colors.redAccent,
     child: new FlatButton(
-      onPressed: null,
+      // onPressed: null,
+      onPressed: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => CreateAccountPage())),
       child: new Container(
         child: new Text(
           'Create a new Account',

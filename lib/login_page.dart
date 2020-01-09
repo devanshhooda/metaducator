@@ -30,22 +30,33 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: new AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        title: new Text(
+          'Metaducator',
+          style: new TextStyle(
+              color: Colors.redAccent,
+              fontSize: 50,
+              fontWeight: FontWeight.w900),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: new Stack(
         children: <Widget>[
+          // Positioned(
+          //   left: 20,
+          //   top: 30,
+          //   child: new Text(
+          //     'Metaducator',
+          //     style: new TextStyle(
+          //         color: Colors.redAccent,
+          //         fontSize: 50,
+          //         fontWeight: FontWeight.w900),
+          //   ),
+          // ),
           Positioned(
-            left: 20,
-            top: 30,
-            child: new Text(
-              'Metaducator',
-              style: new TextStyle(
-                  color: Colors.redAccent,
-                  fontSize: 50,
-                  fontWeight: FontWeight.w900),
-            ),
-          ),
-          Positioned(
-              top: 200,
+              top: 150,
               child: new Container(
                 height: 380,
                 width: 424,
@@ -57,13 +68,13 @@ class _LoginPageState extends State<LoginPage> {
                     children: <Widget>[
                       new Container(
                         child: new Text(
-                          'Login',
+                          '',
                           style: new TextStyle(
                               color: Colors.blue,
                               fontSize: 50,
                               fontWeight: FontWeight.bold),
                         ),
-                        padding: EdgeInsets.only(left: 40, top: 20, bottom: 15),
+                        padding: EdgeInsets.only(left: 40, top: 30, bottom: 15),
                       ),
                       new Container(
                         height: 70,
@@ -125,8 +136,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               )),
           Positioned(
-            top: 80,
-            left: 110,
+            top: 30,
+            left: 120,
             child: new Container(
               height: 180,
               width: 200,
@@ -138,12 +149,26 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Positioned(
-            top: 540,
+            top: 190,
+            left: 50,
+            child: new Container(
+              child: new Text(
+                'Login',
+                style: new TextStyle(
+                    color: Colors.blue,
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold),
+              ),
+              // padding: EdgeInsets.only(left: 40, top: 30, bottom: 15),
+            ),
+          ),
+          Positioned(
+            top: 490,
             left: 160,
             child: loginButton(),
           ),
           Positioned(
-            top: 645,
+            top: 615,
             left: 190,
             child: new Text(
               'OR',
@@ -154,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Positioned(
-            top: 700,
+            top: 680,
             left: 70,
             child: newAccountButton(context),
           )

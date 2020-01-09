@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(Metaducator());
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+  runApp(Metaducator());
+}
 
 class Metaducator extends StatefulWidget {
   @override
